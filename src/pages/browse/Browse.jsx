@@ -1,0 +1,51 @@
+import React from "react";
+import { useEffect } from "react";
+
+import MovieList from "../../components/browse/MovieList";
+import requests from "../../utils/requests";
+import Banner from "../../components/browse/Banner";
+import Nav from "../../components/browse/Nav";
+
+import "./Browse.css";
+
+function Browse() {
+  const test = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/movies/trending/page=/2/8qlOkxz4wq"
+      );
+      console.log(response);
+      if (response) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        throw Error;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    test();
+  }, []);
+  return (
+    <div className="app">
+      <Nav />
+      <Banner />
+      <MovieList
+        title=""
+        isLargeRow
+        fetchUrl={requests.fetchNetflixOriginals}
+      />
+      {/* <MovieList title="Xu hướng" fetchUrl={requests.fetchTrending} /> */}
+      <MovieList title="Xếp hạng cao" fetchUrl={requests.fetchTopRated} />
+      <MovieList title="Hành động" fetchUrl={requests.fetchActionMovies} />
+      <MovieList title="Hài" fetchUrl={requests.fetchComedyMovies} />
+      <MovieList title="Kinh dị" fetchUrl={requests.fetchHorrorMovies} />
+      <MovieList title="Lãng mạn" fetchUrl={requests.fetchRomanceMovies} />
+      <MovieList title="Tài liệu" fetchUrl={requests.fetchDocumentaries} />
+    </div>
+  );
+}
+
+export default Browse;
