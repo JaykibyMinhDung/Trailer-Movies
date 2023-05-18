@@ -4,7 +4,7 @@ import axios from "axios";
 import Nav from "../../components/browse/Nav";
 import SearchResult from "../../components/search/SearchResult";
 import "./Search.css";
-
+// git commit -m " Push Backend again second time "
 const Search = () => {
   const [query, setQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -46,6 +46,7 @@ const Search = () => {
                   placeholder="Type Keywords"
                   onChange={(e) => setSearchInput(e.target.value)}
                   value={searchInput}
+                  autoComplete="off"
                 />
                 <div className="icon-wrap">
                   <svg
@@ -89,7 +90,7 @@ const Search = () => {
           </div>
         </form>
       </div>
-      <SearchResult query={query} />
+      <SearchResult query={query || ""} />
     </div>
   );
 };

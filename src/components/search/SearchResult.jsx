@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-// import axios from "../../utils/axios";
-import axios from "axios";
-// import requests from "../../utils/requests";
+import axios from "../../utils/axios";
+// import axios from "axios";
+import requests from "../../utils/requests";
 
 import "./SearchResult.css";
 import MovieDetail from "../browse/MovieDetail";
@@ -15,25 +15,27 @@ const SearchResult = ({ query }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   // const url = `${requests.fetchSearch}&query=${query}`;
-  const url = `http://localhost:8080/api/movies/search/8qlOkxz4wq/${query}`;
+  const url = `${requests.fetchSearch}${query}`;
 
   async function handleClick(a) {
     if (selectedMovie && selectedMovie.id === a.id) {
       setSelectedMovie(null);
       setTrailerUrl("");
     } else {
-      setSelectedMovie(a);
-      try {
-        const idmovie = await a.id;
-        const request = await axios.post(
-          `http://localhost:8080/api/movies/video/8qlOkxz4wq/${idmovie}`
-        );
-        setTrailerUrl(request.data.key);
-        console.log(request);
-        //   return request; 92783
-      } catch (error) {
-        console.log("SearchResults");
-        console.error(error);
+      if (a) {
+        setSelectedMovie(a);
+        try {
+          const idmovie = await a.id;
+          const request = await axios.post(
+            `${requests.fetchidMovie}${idmovie}`
+          );
+          setTrailerUrl(request.data.key);
+          console.log(request);
+          //   return request; 92783
+        } catch (error) {
+          console.log("SearchResults");
+          console.error(error.message);
+        }
       }
     }
   }
