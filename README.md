@@ -1,13 +1,30 @@
 # Trailer movies
-Dự án được xây dựng từ reactJS + Nodejs (express)
 
+Name Project: Application Watch Trailer
+
+Type: Entertaiment
+
+Skill: reactJS, Cssmodule, Fetch APIs
+
+Pages: 2
+- HomePage: 
+ + Show movies and watch trailer movies from package npm youtube
+ + Show movies popular on the banner
+ + Position fixed navbar
+ + Event mouseting for list image 
+
+- Search:
+  + Search movies such as keyword
+  + Show image movies have searched and you could watch trailer
+
+
+Features:
 React JS: Đã có một dự án xây bằng react từ trước nhưng sử dụng hoàn toàn 100% API ( Name Project: Webmovie )
-- Lấy dữ liệu từ API themovies api
-- Hiển thị movie và thông tin movie bằng thao tác click vào ảnh
-- Chạy movie và lấy dữ liệu movie đã có trên youtube để hiển thị trailer trên web
-- Tìm kiếm movie yêu thích hoặc muốn xem bằng trang search
-- Bắt lỗi và hiển thị lỗi cho developer
+- Take data from API themovies api
+- Show movie and information by click a image
+- Play movie and take data movies were available on youtube to showed on the website
+- Search favorite movie or you want to watch by search page
 
-Do mình bị lỗi phần folder Backend ở branch này nên mình đã chuyển nó qua một resposity khác trên github
+Do tôi bị lỗi phần folder Backend ở branch này nên tôi đã chuyển nó qua một resposity khác trên github
 
 link: https://github.com/JaykibyMinhDung/Server-TrailerMovies
