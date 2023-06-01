@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import Nav from "../../components/browse/Nav";
 import SearchResult from "../../components/search/SearchResult";
 import "./Search.css";
-// git commit -m " Push Backend again second time "
+
 const Search = () => {
   const [query, setQuery] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [yearInput, setYearInput] = useState("");
+  const [genreInput, setGenreInput] = useState("");
+  const [typeMediaInput, setTypemediaInput] = useState("");
+  const [languageInput, setLanguageInput] = useState("");
 
   const handleSearch = () => {
     setQuery(searchInput);
@@ -17,26 +20,15 @@ const Search = () => {
   const resetSearch = () => {
     setQuery("");
     setSearchInput("");
+    setGenreInput("");
   };
 
-  // async function getVideoAPI() {
-  //   axios
-  //     .post(`http://localhost:8080/api/movies/search/8qlOkxz4wq/${query}`)
-  //     .then((request) => {
-  //       console.log(request);
-  //     });
-  // }
-  // useEffect(() => {
-  //   getVideoAPI();
-  // }, [query]);
+  const currentYear = new Date().getFullYear();
   return (
     <div className="app">
       <Nav />
       <div className="s009">
-        <form
-        // action='http://localhost:8080/api/movies/search/8qlOkxz4wq/${}'
-        // method="POST"
-        >
+        <form>
           <div className="inner-form">
             <div className="basic-search">
               <div className="input-field">
@@ -48,6 +40,49 @@ const Search = () => {
                   value={searchInput}
                   autoComplete="off"
                 />
+                <div className="style__input">
+                  <input
+                    type="number"
+                    min="1900"
+                    max="2099"
+                    step="1"
+                    value={yearInput}
+                    onChange={(e) => setYearInput(e.target.value)}
+                    placeholder={currentYear}
+                  />
+                  <input
+                    type="text"
+                    name="genre"
+                    placeholder="Horror"
+                    value={genreInput}
+                    onChange={(e) => setGenreInput(e.target.value)}
+                    autoComplete="off"
+                  />
+                </div>
+                <select
+                  name="mediaType"
+                  value={typeMediaInput}
+                  onChange={(e) => setTypemediaInput(e.target.value)}
+                  id="mediaType"
+                  className="style__select"
+                >
+                  <option value="">all</option>
+                  <option value="movie">movie</option>
+                  <option value="tv">tv</option>
+                  <option value="persion">persion</option>
+                </select>
+                <select
+                  value={languageInput}
+                  onChange={(e) => setLanguageInput(e.target.value)}
+                  name="language"
+                  id="language"
+                  className="style__select"
+                >
+                  <option value="">default</option>
+                  <option value="en">en-us</option>
+                  <option value="jp">japan</option>
+                  <option value="kr">korean</option>
+                </select>
                 <div className="icon-wrap">
                   <svg
                     className="svg-inline--fa fa-search fa-w-16"
@@ -90,7 +125,13 @@ const Search = () => {
           </div>
         </form>
       </div>
-      <SearchResult query={query || ""} />
+      <SearchResult
+        query={query || ""}
+        genre={genreInput}
+        year={yearInput}
+        typeMedia={typeMediaInput}
+        language={languageInput}
+      />
     </div>
   );
 };

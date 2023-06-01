@@ -6,31 +6,11 @@ import requests from "../../utils/requests";
 
 import "./SearchResult.css";
 import MovieDetail from "../browse/MovieDetail";
-
-// Hàm search sẽ tạo 2 ô input ở cạnh và 2 ô select option bên dưới, khi ấn search sẽ lấy thông tin từ dự án sau đó truyền vào endpoint và gửi axios, nhận về data, từ data sẽ hiển thị phim
-
-/*
-const request = axios.post(${requests.fetchidMovie}${keyword}/${genre}/${mediatype}/${language}/${year})
-
-if(!genre) {
-  return 0
-}
-if(!mediatype) {
-  return 0
-}
-if(!language) {
-  return 0
-}
-if(!year) {
-  return 0
-}
-
-request.data.results
-*/
+import qs from "qs";
 
 const base_url = "https://image.tmdb.org/t/p/original";
 
-const SearchResult = ({ query }) => {
+const SearchResult = ({ query, genre, language, typeMedia, year }) => {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -51,19 +31,33 @@ const SearchResult = ({ query }) => {
             `${requests.fetchidMovie}${idmovie}`
           );
           setTrailerUrl(request.data.key);
-          console.log(request);
           //   return request; 92783
         } catch (error) {
-          console.log("SearchResults");
           console.error(error.message);
         }
       }
     }
   }
+
+  const data = {
+    genre: genre,
+    language: language,
+    mediatype: typeMedia,
+    year: year,
+  };
+  const options = {
+    method: "post",
+    headers: { "content-type": "application/x-form-urlendcoded" },
+    data: qs.stringify(data),
+    url: url,
+  };
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.post(url);
-      setMovies(request.data.results);
+      const request = await axios(options);
+      const isAdvancedFilter = Array.isArray(request.data)
+        ? request.data
+        : request.data.results;
+      setMovies(isAdvancedFilter);
       return request;
     }
 
