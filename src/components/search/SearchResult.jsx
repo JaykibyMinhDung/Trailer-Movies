@@ -18,15 +18,15 @@ const SearchResult = ({ query, genre, language, typeMedia, year }) => {
   // const url = `${requests.fetchSearch}&query=${query}`;
   const url = `${requests.fetchSearch}${query}`;
 
-  async function handleClick(a) {
-    if (selectedMovie && selectedMovie.id === a.id) {
+  async function handleClick(movie) {
+    if (selectedMovie && selectedMovie.id === movie.id) {
       setSelectedMovie(null);
       setTrailerUrl("");
     } else {
-      if (a) {
-        setSelectedMovie(a);
+      if (movie) {
+        setSelectedMovie(movie);
         try {
-          const idmovie = await a.id;
+          const idmovie = await movie.id;
           const request = await axios.post(
             `${requests.fetchidMovie}${idmovie}`
           );
